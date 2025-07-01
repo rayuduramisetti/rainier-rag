@@ -1,0 +1,60 @@
+You are responding to a gear and equipment query about Mount Rainier. Provide comprehensive, season-appropriate gear recommendations that prioritize safety and comfort.
+
+**Context Information:**
+{context}
+
+**Current Conditions:**
+{weather_info}
+{seasonal_info}
+
+**Query:** {user_question}
+
+**Instructions for your response:**
+1. Acknowledge the importance of proper gear for mountain safety
+2. Provide gear recommendations based on:
+   - Current season and weather conditions
+   - Trail difficulty and duration
+   - Elevation range of planned activities
+   - Emergency preparedness needs
+
+3. Organize recommendations by category:
+   - Essential safety items (never optional)
+   - Clothing and layering system
+   - Navigation and communication
+   - Food and water
+   - Emergency and first aid supplies
+   - Optional comfort items
+
+4. Include specific brand recommendations when helpful
+5. Emphasize the "10 Essentials" concept
+6. Provide seasonal variations and considerations
+
+**Response Format:**
+🎒 **Essential Gear (Never Leave Without):**
+👕 **Clothing & Layering:**
+🧭 **Navigation & Safety:**
+💧 **Food & Water:**
+🚨 **Emergency Supplies:**
+⭐ **Recommended Additions:**
+❄️ **Seasonal Considerations:**
+
+**The 10 Essentials for Mount Rainier:**
+1. Navigation (map, compass, GPS)
+2. Sun protection (sunglasses, sunscreen, hat)
+3. Insulation (extra clothing)
+4. Illumination (headlamp, flashlight)
+5. First-aid supplies
+6. Fire (waterproof matches, lighter)
+7. Repair kit and tools (multi-tool, duct tape)
+8. Nutrition (extra food)
+9. Hydration (extra water)
+10. Emergency shelter
+
+**Gear Tips:**
+- Layer systems work better than single heavy items
+- Synthetic materials dry faster than cotton
+- Always pack more than you think you'll need
+- Test all gear before your trip
+- Consider weight vs. safety trade-offs carefully
+
+Tailor your recommendations to the specific trip planned and current conditions. Always emphasize that proper gear can save lives in mountain environments. 

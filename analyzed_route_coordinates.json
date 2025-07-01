@@ -1,0 +1,104 @@
+{
+  "method": "PIL-based image analysis with manual refinement",
+  "description": "Mount Rainier Disappointment Cleaver route",
+  "waypoints": [
+    {
+      "x": 10,
+      "y": 90,
+      "zone": "Paradise",
+      "elevation": 5400,
+      "message": "\ud83c\udfc1 Starting the ascent from Paradise!"
+    },
+    {
+      "x": 15,
+      "y": 85,
+      "zone": "Paradise Valley",
+      "elevation": 6000,
+      "message": "\ud83c\udf32 Climbing through Paradise meadows"
+    },
+    {
+      "x": 20,
+      "y": 78,
+      "zone": "Panorama Point",
+      "elevation": 6800,
+      "message": "\ud83c\udf04 Beautiful views opening up!"
+    },
+    {
+      "x": 28,
+      "y": 70,
+      "zone": "Pebble Creek",
+      "elevation": 8200,
+      "message": "\u2744\ufe0f Entering the snowfield zone"
+    },
+    {
+      "x": 35,
+      "y": 62,
+      "zone": "Lower Muir Snowfield",
+      "elevation": 9000,
+      "message": "\u26c4 Steady climbing on snow"
+    },
+    {
+      "x": 42,
+      "y": 54,
+      "zone": "Mid Muir Snowfield",
+      "elevation": 9500,
+      "message": "\u26c4 Steep snow climbing ahead"
+    },
+    {
+      "x": 48,
+      "y": 46,
+      "zone": "Upper Muir Snowfield",
+      "elevation": 10000,
+      "message": "\ud83c\udfd4\ufe0f Camp Muir coming into view"
+    },
+    {
+      "x": 54,
+      "y": 38,
+      "zone": "Camp Muir",
+      "elevation": 10188,
+      "message": "\u26fa Reached Camp Muir! Preparing gear..."
+    },
+    {
+      "x": 62,
+      "y": 32,
+      "zone": "Cowlitz Glacier",
+      "elevation": 11000,
+      "message": "\ud83e\uddd7 Technical glacier travel begins"
+    },
+    {
+      "x": 70,
+      "y": 28,
+      "zone": "Cathedral Gap",
+      "elevation": 11800,
+      "message": "\ud83e\udea8 Approaching the rock band"
+    },
+    {
+      "x": 78,
+      "y": 24,
+      "zone": "Disappointment Cleaver",
+      "elevation": 12800,
+      "message": "\u26a1 Most technical section - rock and ice!"
+    },
+    {
+      "x": 85,
+      "y": 18,
+      "zone": "Upper DC",
+      "elevation": 13200,
+      "message": "\ud83c\udfaf Pushing through the upper cleaver"
+    },
+    {
+      "x": 90,
+      "y": 12,
+      "zone": "Crater Rim",
+      "elevation": 13800,
+      "message": "\ud83c\udf0b Almost to the crater rim!"
+    },
+    {
+      "x": 93,
+      "y": 8,
+      "zone": "Columbia Crest Summit",
+      "elevation": 14411,
+      "message": "\ud83c\udfc6 Summit achieved at 14,411 feet! \ud83c\udf89"
+    }
+  ]
+}

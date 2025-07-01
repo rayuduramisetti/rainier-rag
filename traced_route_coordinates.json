@@ -1,0 +1,105 @@
+{
+  "method": "Color tracing of FATMAP route line",
+  "total_pixels_found": 590,
+  "waypoints_extracted": 18,
+  "climbing_route": [
+    {
+      "x": 19.5,
+      "y": 92.7,
+      "zone": "Paradise",
+      "elevation": 5400,
+      "message": "\ud83c\udfc1 Starting the ascent from Paradise!"
+    },
+    {
+      "x": 21.2,
+      "y": 89.2,
+      "zone": "Paradise Valley",
+      "elevation": 6093,
+      "message": "\ud83c\udf32 Climbing through Paradise meadows"
+    },
+    {
+      "x": 24.9,
+      "y": 84.3,
+      "zone": "Panorama Point",
+      "elevation": 6786,
+      "message": "\ud83c\udf04 Beautiful views opening up!"
+    },
+    {
+      "x": 29.5,
+      "y": 79.9,
+      "zone": "Pebble Creek",
+      "elevation": 7479,
+      "message": "\u2744\ufe0f Entering the snowfield zone"
+    },
+    {
+      "x": 33.8,
+      "y": 73.9,
+      "zone": "Lower Muir Snowfield",
+      "elevation": 8172,
+      "message": "\u26c4 Steady climbing on snow"
+    },
+    {
+      "x": 39.2,
+      "y": 69.9,
+      "zone": "Mid Muir Snowfield",
+      "elevation": 8865,
+      "message": "\u26c4 Steep snow climbing ahead"
+    },
+    {
+      "x": 41.5,
+      "y": 63.4,
+      "zone": "Upper Muir Snowfield",
+      "elevation": 9558,
+      "message": "\ud83c\udfd4\ufe0f Camp Muir coming into view"
+    },
+    {
+      "x": 41.6,
+      "y": 61.3,
+      "zone": "Camp Muir",
+      "elevation": 10252,
+      "message": "\u26fa Reached Camp Muir! Preparing gear..."
+    },
+    {
+      "x": 39.1,
+      "y": 55.5,
+      "zone": "Cowlitz Glacier",
+      "elevation": 10945,
+      "message": "\ud83e\uddd7 Technical glacier travel begins"
+    },
+    {
+      "x": 38.0,
+      "y": 48.8,
+      "zone": "Cathedral Gap",
+      "elevation": 11638,
+      "message": "\ud83e\udea8 Approaching the rock band"
+    },
+    {
+      "x": 43.0,
+      "y": 45.8,
+      "zone": "Disappointment Cleaver",
+      "elevation": 12331,
+      "message": "\u26a1 Most technical section - rock and ice!"
+    },
+    {
+      "x": 43.2,
+      "y": 38.8,
+      "zone": "Upper DC",
+      "elevation": 13024,
+      "message": "\ud83c\udfaf Pushing through the upper cleaver"
+    },
+    {
+      "x": 44.6,
+      "y": 33.4,
+      "zone": "Crater Rim",
+      "elevation": 13717,
+      "message": "\ud83c\udf0b Almost to the crater rim!"
+    },
+    {
+      "x": 45.6,
+      "y": 28.8,
+      "zone": "Columbia Crest Summit",
+      "elevation": 14411,
+      "message": "\ud83c\udfc6 Summit achieved at 14,411 feet! \ud83c\udf89"
+    }
+  ]
+}

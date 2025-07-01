@@ -1,0 +1,160 @@
+2025-06-30 16:55:45,391 - __main__ - INFO - Starting Mount Rainier AI Guide...
+2025-06-30 16:55:45,391 - __main__ - INFO - Starting Mount Rainier AI Guide...
+2025-06-30 16:55:45,392 - __main__ - INFO - Created necessary directories
+2025-06-30 16:55:45,392 - __main__ - INFO - Created necessary directories
+2025-06-30 16:55:50,204 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-06-30 16:55:50,204 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-06-30 16:55:53,528 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2025-06-30 16:55:53,529 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2025-06-30 16:55:53,929 - chromadb.telemetry.product.posthog - INFO - Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
+2025-06-30 16:55:53,929 - chromadb.telemetry.product.posthog - INFO - Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
+2025-06-30 16:55:54,086 - chromadb.telemetry.product.posthog - ERROR - Failed to send telemetry event ClientStartEvent: capture() takes 1 positional argument but 3 were given
+2025-06-30 16:55:54,086 - chromadb.telemetry.product.posthog - ERROR - Failed to send telemetry event ClientStartEvent: capture() takes 1 positional argument but 3 were given
+2025-06-30 16:55:54,089 - chromadb.telemetry.product.posthog - ERROR - Failed to send telemetry event ClientCreateCollectionEvent: capture() takes 1 positional argument but 3 were given
+2025-06-30 16:55:54,089 - chromadb.telemetry.product.posthog - ERROR - Failed to send telemetry event ClientCreateCollectionEvent: capture() takes 1 positional argument but 3 were given
+2025-06-30 16:55:54,090 - src.rag_system.rag_engine - INFO - Enhanced RAG Engine initialized with streaming capability
+2025-06-30 16:55:54,090 - src.rag_system.rag_engine - INFO - Enhanced RAG Engine initialized with streaming capability
+2025-06-30 16:55:54,090 - src.ui.gradio_app - INFO - Initializing Mount Rainier AI Guide with Enhanced RAG...
+2025-06-30 16:55:54,090 - src.ui.gradio_app - INFO - Initializing Mount Rainier AI Guide with Enhanced RAG...
+2025-06-30 16:55:54,090 - src.ui.gradio_app - INFO - Mount Rainier AI Guide ready!
+2025-06-30 16:55:54,090 - src.ui.gradio_app - INFO - Mount Rainier AI Guide ready!
+2025-06-30 16:55:55,273 - httpx - INFO - HTTP Request: GET https://api.gradio.app/pkg-version "HTTP/1.1 200 OK"
+2025-06-30 16:55:55,772 - httpx - INFO - HTTP Request: GET https://api.gradio.app/pkg-version "HTTP/1.1 200 OK"
+2025-06-30 16:55:56,234 - httpx - INFO - HTTP Request: GET https://checkip.amazonaws.com/ "HTTP/1.1 200 "
+2025-06-30 16:55:56,234 - httpx - INFO - HTTP Request: GET https://checkip.amazonaws.com/ "HTTP/1.1 200 "
+2025-06-30 16:55:56,268 - httpx - INFO - HTTP Request: GET http://localhost:7860/startup-events "HTTP/1.1 200 OK"
+2025-06-30 16:55:56,414 - httpx - INFO - HTTP Request: HEAD http://localhost:7860/ "HTTP/1.1 500 Internal Server Error"
+2025-06-30 16:55:56,924 - httpx - INFO - HTTP Request: HEAD http://localhost:7860/ "HTTP/1.1 500 Internal Server Error"
+2025-06-30 16:55:57,435 - httpx - INFO - HTTP Request: HEAD http://localhost:7860/ "HTTP/1.1 500 Internal Server Error"
+2025-06-30 16:55:57,947 - httpx - INFO - HTTP Request: HEAD http://localhost:7860/ "HTTP/1.1 500 Internal Server Error"
+2025-06-30 16:55:58,455 - httpx - INFO - HTTP Request: HEAD http://localhost:7860/ "HTTP/1.1 500 Internal Server Error"
+2025-06-30 16:55:59,299 - httpx - INFO - HTTP Request: GET https://api.gradio.app/v2/tunnel-request "HTTP/1.1 200 OK"
+2025-06-30 16:55:59,640 - httpx - INFO - HTTP Request: GET https://cdn-media.huggingface.co/frpc-gradio-0.2/frpc_darwin_amd64 "HTTP/1.1 200 OK"
+2025-06-30 16:55:59,758 - __main__ - ERROR - Application error: Cannot find empty port in range: 7860-7860. You can specify a different port by setting the GRADIO_SERVER_PORT environment variable or passing the `server_port` parameter to `launch()`.
+2025-06-30 16:56:18,352 - __main__ - INFO - Starting Mount Rainier AI Guide...
+2025-06-30 16:56:18,352 - __main__ - INFO - Created necessary directories
+2025-06-30 16:56:22,548 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-06-30 16:56:25,327 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2025-06-30 16:56:25,635 - chromadb.telemetry.product.posthog - INFO - Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
+2025-06-30 16:56:25,783 - chromadb.telemetry.product.posthog - ERROR - Failed to send telemetry event ClientStartEvent: capture() takes 1 positional argument but 3 were given
+2025-06-30 16:56:25,785 - chromadb.telemetry.product.posthog - ERROR - Failed to send telemetry event ClientCreateCollectionEvent: capture() takes 1 positional argument but 3 were given
+2025-06-30 16:56:25,785 - src.rag_system.rag_engine - INFO - Enhanced RAG Engine initialized with streaming capability
+2025-06-30 16:56:25,785 - src.ui.gradio_app - INFO - Initializing Mount Rainier AI Guide with Enhanced RAG...
+2025-06-30 16:56:25,785 - src.ui.gradio_app - INFO - Mount Rainier AI Guide ready!
+2025-06-30 16:56:26,024 - httpx - INFO - HTTP Request: GET https://checkip.amazonaws.com/ "HTTP/1.1 200 "
+2025-06-30 16:56:26,132 - httpx - INFO - HTTP Request: GET https://api.gradio.app/pkg-version "HTTP/1.1 200 OK"
+2025-06-30 16:56:30,973 - __main__ - ERROR - Application error: Cannot find empty port in range: 7860-7860. You can specify a different port by setting the GRADIO_SERVER_PORT environment variable or passing the `server_port` parameter to `launch()`.
+2025-06-30 16:56:38,188 - __main__ - INFO - Starting Mount Rainier AI Guide...
+2025-06-30 16:56:38,188 - __main__ - INFO - Created necessary directories
+2025-06-30 16:56:43,028 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-06-30 16:56:46,126 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2025-06-30 16:56:46,454 - chromadb.telemetry.product.posthog - INFO - Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
+2025-06-30 16:56:46,607 - chromadb.telemetry.product.posthog - ERROR - Failed to send telemetry event ClientStartEvent: capture() takes 1 positional argument but 3 were given
+2025-06-30 16:56:46,610 - chromadb.telemetry.product.posthog - ERROR - Failed to send telemetry event ClientCreateCollectionEvent: capture() takes 1 positional argument but 3 were given
+2025-06-30 16:56:46,610 - src.rag_system.rag_engine - INFO - Enhanced RAG Engine initialized with streaming capability
+2025-06-30 16:56:46,610 - src.ui.gradio_app - INFO - Initializing Mount Rainier AI Guide with Enhanced RAG...
+2025-06-30 16:56:46,610 - src.ui.gradio_app - INFO - Mount Rainier AI Guide ready!
+2025-06-30 16:56:46,846 - httpx - INFO - HTTP Request: GET https://checkip.amazonaws.com/ "HTTP/1.1 200 "
+2025-06-30 16:56:46,977 - httpx - INFO - HTTP Request: GET https://api.gradio.app/pkg-version "HTTP/1.1 200 OK"
+2025-06-30 16:56:51,812 - __main__ - ERROR - Application error: Cannot find empty port in range: 7860-7860. You can specify a different port by setting the GRADIO_SERVER_PORT environment variable or passing the `server_port` parameter to `launch()`.
+2025-06-30 16:58:04,393 - __main__ - INFO - Starting Mount Rainier AI Guide...
+2025-06-30 16:58:04,394 - __main__ - INFO - Created necessary directories
+2025-06-30 16:58:08,523 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-06-30 16:58:11,245 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2025-06-30 16:58:11,535 - chromadb.telemetry.product.posthog - INFO - Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
+2025-06-30 16:58:11,664 - chromadb.telemetry.product.posthog - ERROR - Failed to send telemetry event ClientStartEvent: capture() takes 1 positional argument but 3 were given
+2025-06-30 16:58:11,666 - chromadb.telemetry.product.posthog - ERROR - Failed to send telemetry event ClientCreateCollectionEvent: capture() takes 1 positional argument but 3 were given
+2025-06-30 16:58:11,666 - src.rag_system.rag_engine - INFO - Enhanced RAG Engine initialized with streaming capability
+2025-06-30 16:58:11,666 - src.ui.gradio_app - INFO - Initializing Mount Rainier AI Guide with Enhanced RAG...
+2025-06-30 16:58:11,666 - src.ui.gradio_app - INFO - Mount Rainier AI Guide ready!
+2025-06-30 16:58:11,883 - httpx - INFO - HTTP Request: GET http://localhost:7861/startup-events "HTTP/1.1 200 OK"
+2025-06-30 16:58:11,930 - httpx - INFO - HTTP Request: GET https://checkip.amazonaws.com/ "HTTP/1.1 200 "
+2025-06-30 16:58:12,036 - httpx - INFO - HTTP Request: GET https://api.gradio.app/pkg-version "HTTP/1.1 200 OK"
+2025-06-30 16:58:12,043 - httpx - INFO - HTTP Request: HEAD http://localhost:7861/ "HTTP/1.1 500 Internal Server Error"
+2025-06-30 16:58:12,557 - httpx - INFO - HTTP Request: HEAD http://localhost:7861/ "HTTP/1.1 500 Internal Server Error"
+2025-06-30 16:58:13,065 - httpx - INFO - HTTP Request: HEAD http://localhost:7861/ "HTTP/1.1 500 Internal Server Error"
+2025-06-30 16:58:13,577 - httpx - INFO - HTTP Request: HEAD http://localhost:7861/ "HTTP/1.1 500 Internal Server Error"
+2025-06-30 16:58:14,088 - httpx - INFO - HTTP Request: HEAD http://localhost:7861/ "HTTP/1.1 500 Internal Server Error"
+2025-06-30 16:58:14,916 - httpx - INFO - HTTP Request: GET https://api.gradio.app/v2/tunnel-request "HTTP/1.1 200 OK"
+2025-06-30 17:06:11,657 - __main__ - INFO - Starting Mount Rainier AI Guide...
+2025-06-30 17:06:11,657 - __main__ - INFO - Created necessary directories
+2025-06-30 17:06:16,905 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-06-30 17:06:20,454 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2025-06-30 17:06:20,797 - chromadb.telemetry.product.posthog - INFO - Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
+2025-06-30 17:06:20,945 - chromadb.telemetry.product.posthog - ERROR - Failed to send telemetry event ClientStartEvent: capture() takes 1 positional argument but 3 were given
+2025-06-30 17:06:20,947 - chromadb.telemetry.product.posthog - ERROR - Failed to send telemetry event ClientCreateCollectionEvent: capture() takes 1 positional argument but 3 were given
+2025-06-30 17:06:20,948 - src.rag_system.rag_engine - INFO - Enhanced RAG Engine initialized with streaming capability
+2025-06-30 17:06:20,948 - src.ui.gradio_app - INFO - Initializing Mount Rainier AI Guide with Enhanced RAG...
+2025-06-30 17:06:20,948 - src.ui.gradio_app - INFO - Mount Rainier AI Guide ready!
+2025-06-30 17:06:21,172 - httpx - INFO - HTTP Request: GET http://localhost:7862/startup-events "HTTP/1.1 200 OK"
+2025-06-30 17:06:21,288 - httpx - INFO - HTTP Request: GET https://checkip.amazonaws.com/ "HTTP/1.1 200 "
+2025-06-30 17:06:21,310 - httpx - INFO - HTTP Request: HEAD http://localhost:7862/ "HTTP/1.1 500 Internal Server Error"
+2025-06-30 17:06:21,326 - httpx - INFO - HTTP Request: GET https://api.gradio.app/pkg-version "HTTP/1.1 200 OK"
+2025-06-30 17:06:21,822 - httpx - INFO - HTTP Request: HEAD http://localhost:7862/ "HTTP/1.1 500 Internal Server Error"
+2025-06-30 17:06:22,333 - httpx - INFO - HTTP Request: HEAD http://localhost:7862/ "HTTP/1.1 500 Internal Server Error"
+2025-06-30 17:06:22,848 - httpx - INFO - HTTP Request: HEAD http://localhost:7862/ "HTTP/1.1 500 Internal Server Error"
+2025-06-30 17:06:23,357 - httpx - INFO - HTTP Request: HEAD http://localhost:7862/ "HTTP/1.1 500 Internal Server Error"
+2025-06-30 17:06:24,194 - httpx - INFO - HTTP Request: GET https://api.gradio.app/v2/tunnel-request "HTTP/1.1 200 OK"
+2025-06-30 17:07:14,534 - __main__ - INFO - Starting Mount Rainier AI Guide...
+2025-06-30 17:07:14,534 - __main__ - INFO - Created necessary directories
+2025-06-30 17:07:19,988 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-06-30 17:07:23,025 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2025-06-30 17:07:23,385 - chromadb.telemetry.product.posthog - INFO - Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
+2025-06-30 17:07:23,539 - chromadb.telemetry.product.posthog - ERROR - Failed to send telemetry event ClientStartEvent: capture() takes 1 positional argument but 3 were given
+2025-06-30 17:07:23,542 - chromadb.telemetry.product.posthog - ERROR - Failed to send telemetry event ClientCreateCollectionEvent: capture() takes 1 positional argument but 3 were given
+2025-06-30 17:07:23,542 - src.rag_system.rag_engine - INFO - Enhanced RAG Engine initialized with streaming capability
+2025-06-30 17:07:23,543 - src.ui.gradio_app - INFO - Initializing Mount Rainier AI Guide with Enhanced RAG...
+2025-06-30 17:07:23,543 - src.ui.gradio_app - INFO - Mount Rainier AI Guide ready!
+2025-06-30 17:07:23,875 - httpx - INFO - HTTP Request: GET https://checkip.amazonaws.com/ "HTTP/1.1 200 "
+2025-06-30 17:07:23,909 - httpx - INFO - HTTP Request: GET https://api.gradio.app/pkg-version "HTTP/1.1 200 OK"
+2025-06-30 17:07:28,754 - __main__ - ERROR - Application error: Cannot find empty port in range: 7862-7862. You can specify a different port by setting the GRADIO_SERVER_PORT environment variable or passing the `server_port` parameter to `launch()`.
+2025-06-30 17:07:43,660 - __main__ - INFO - Starting Mount Rainier AI Guide...
+2025-06-30 17:07:43,661 - __main__ - INFO - Created necessary directories
+2025-06-30 17:07:48,295 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-06-30 17:07:51,502 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2025-06-30 17:07:51,840 - chromadb.telemetry.product.posthog - INFO - Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
+2025-06-30 17:07:51,988 - chromadb.telemetry.product.posthog - ERROR - Failed to send telemetry event ClientStartEvent: capture() takes 1 positional argument but 3 were given
+2025-06-30 17:07:51,990 - chromadb.telemetry.product.posthog - ERROR - Failed to send telemetry event ClientCreateCollectionEvent: capture() takes 1 positional argument but 3 were given
+2025-06-30 17:07:51,991 - src.rag_system.rag_engine - INFO - Enhanced RAG Engine initialized with streaming capability
+2025-06-30 17:07:51,991 - src.ui.gradio_app - INFO - Initializing Mount Rainier AI Guide with Enhanced RAG...
+2025-06-30 17:07:51,991 - src.ui.gradio_app - INFO - Mount Rainier AI Guide ready!
+2025-06-30 17:07:52,196 - httpx - INFO - HTTP Request: GET https://checkip.amazonaws.com/ "HTTP/1.1 200 "
+2025-06-30 17:07:52,236 - httpx - INFO - HTTP Request: GET http://localhost:8080/startup-events "HTTP/1.1 200 OK"
+2025-06-30 17:07:52,358 - httpx - INFO - HTTP Request: GET https://api.gradio.app/pkg-version "HTTP/1.1 200 OK"
+2025-06-30 17:07:52,376 - httpx - INFO - HTTP Request: HEAD http://localhost:8080/ "HTTP/1.1 500 Internal Server Error"
+2025-06-30 17:07:52,888 - httpx - INFO - HTTP Request: HEAD http://localhost:8080/ "HTTP/1.1 500 Internal Server Error"
+2025-06-30 17:07:53,402 - httpx - INFO - HTTP Request: HEAD http://localhost:8080/ "HTTP/1.1 500 Internal Server Error"
+2025-06-30 17:07:53,913 - httpx - INFO - HTTP Request: HEAD http://localhost:8080/ "HTTP/1.1 500 Internal Server Error"
+2025-06-30 17:07:54,424 - httpx - INFO - HTTP Request: HEAD http://localhost:8080/ "HTTP/1.1 500 Internal Server Error"
+2025-06-30 17:07:55,355 - httpx - INFO - HTTP Request: GET https://api.gradio.app/v2/tunnel-request "HTTP/1.1 200 OK"
+2025-06-30 17:24:26,730 - __main__ - INFO - Starting Mount Rainier AI Guide...
+2025-06-30 17:24:26,730 - __main__ - INFO - Created necessary directories
+2025-06-30 17:24:31,675 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-06-30 17:24:34,820 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2025-06-30 17:24:35,304 - chromadb.telemetry.product.posthog - INFO - Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
+2025-06-30 17:24:35,588 - chromadb.telemetry.product.posthog - ERROR - Failed to send telemetry event ClientStartEvent: capture() takes 1 positional argument but 3 were given
+2025-06-30 17:24:35,593 - chromadb.telemetry.product.posthog - ERROR - Failed to send telemetry event ClientCreateCollectionEvent: capture() takes 1 positional argument but 3 were given
+2025-06-30 17:24:35,595 - src.rag_system.rag_engine - INFO - Enhanced RAG Engine initialized with streaming capability
+2025-06-30 17:24:35,595 - src.ui.gradio_app - INFO - Initializing Mount Rainier AI Guide with Enhanced RAG...
+2025-06-30 17:24:35,595 - src.ui.gradio_app - INFO - Mount Rainier AI Guide ready!
+2025-06-30 17:24:41,046 - __main__ - ERROR - Application error: Cannot find empty port in range: 8080-8080. You can specify a different port by setting the GRADIO_SERVER_PORT environment variable or passing the `server_port` parameter to `launch()`.
+2025-06-30 17:28:30,434 - __main__ - INFO - Starting Mount Rainier AI Guide...
+2025-06-30 17:28:30,435 - __main__ - INFO - Created necessary directories
+2025-06-30 17:28:34,983 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-06-30 17:28:37,814 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2025-06-30 17:28:38,376 - chromadb.telemetry.product.posthog - INFO - Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
+2025-06-30 17:28:38,517 - chromadb.telemetry.product.posthog - ERROR - Failed to send telemetry event ClientStartEvent: capture() takes 1 positional argument but 3 were given
+2025-06-30 17:28:38,519 - chromadb.telemetry.product.posthog - ERROR - Failed to send telemetry event ClientCreateCollectionEvent: capture() takes 1 positional argument but 3 were given
+2025-06-30 17:28:38,519 - src.rag_system.rag_engine - INFO - Enhanced RAG Engine initialized with streaming capability
+2025-06-30 17:28:38,519 - src.ui.gradio_app - INFO - Initializing Mount Rainier AI Guide with Enhanced RAG...
+2025-06-30 17:28:38,519 - src.ui.gradio_app - INFO - Mount Rainier AI Guide ready!
+2025-06-30 21:32:24,068 - __main__ - INFO - Starting Mount Rainier AI Guide...
+2025-06-30 21:32:24,069 - __main__ - INFO - Created necessary directories
+2025-06-30 21:32:29,245 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-06-30 21:32:32,394 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2025-06-30 21:32:32,936 - chromadb.telemetry.product.posthog - INFO - Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
+2025-06-30 21:32:33,084 - chromadb.telemetry.product.posthog - ERROR - Failed to send telemetry event ClientStartEvent: capture() takes 1 positional argument but 3 were given
+2025-06-30 21:32:33,087 - chromadb.telemetry.product.posthog - ERROR - Failed to send telemetry event ClientCreateCollectionEvent: capture() takes 1 positional argument but 3 were given
+2025-06-30 21:32:33,087 - src.rag_system.rag_engine - INFO - Enhanced RAG Engine initialized with streaming capability
+2025-06-30 21:32:33,087 - src.ui.gradio_app - INFO - Initializing Mount Rainier AI Guide with Enhanced RAG...
+2025-06-30 21:32:33,087 - src.ui.gradio_app - INFO - Mount Rainier AI Guide ready!
