@@ -52,9 +52,10 @@ class EnhancedRAGEngine:
     async def get_answer_stream(self, user_question: str) -> AsyncGenerator[Dict[str, Any], None]:
         """
         Complete Enhanced RAG Pipeline with Streaming Updates:
-        1. Query Enhancement (LLM) - with progress
-        2. Vector Retrieval - with progress
-        3. Response Generation (LLM) - with progress
+        1. Query Classification & Conversational Handling
+        2. Query Enhancement (LLM) - with progress
+        3. Vector Retrieval - with progress
+        4. Response Generation (LLM) - with progress
         
         Args:
             user_question: Raw user question
@@ -63,16 +64,51 @@ class EnhancedRAGEngine:
             Dict with step updates and final result
         """
         try:
-            # STEP 1: Query Enhancement
+            # STEP 0: Query Classification (NEW - Handle conversational inputs)
             yield {
-                "step": "query_enhancement",
+                "step": "query_classification",
                 "status": "processing",
-                "message": "🤔 Analyzing your question...",
-                "progress": 10
+                "message": "🤔 Understanding your question...",
+                "progress": 5
             }
             
             # Classify query type
             query_type = self.query_enhancer.classify_query_type(user_question)
+            
+            yield {
+                "step": "query_classification", 
+                "status": "completed",
+                "message": f"🏷️ Detected query type: {query_type}",
+                "query_type": query_type,
+                "progress": 10
+            }
+            
+            # Handle conversational inputs directly (skip RAG pipeline)
+            if query_type in ["greeting", "system_info", "courtesy", "off_topic", "empty"]:
+                conversational_response = self._handle_conversational_input(user_question, query_type)
+                
+                yield {
+                    "step": "final_result",
+                    "status": "completed",
+                    "original_question": user_question,
+                    "enhanced_question": user_question,
+                    "query_type": query_type,
+                    "answer": conversational_response,
+                    "sources": [],
+                    "enhancement_used": False,
+                    "conversation_mode": True,
+                    "progress": 100,
+                    "message": "✨ Conversational response ready!"
+                }
+                return
+            
+            # STEP 1: Query Enhancement (for informational queries)
+            yield {
+                "step": "query_enhancement",
+                "status": "processing",
+                "message": "✨ Enhancing your question for better search...",
+                "progress": 20
+            }
             
             yield {
                 "step": "query_enhancement", 
@@ -100,7 +136,7 @@ class EnhancedRAGEngine:
                     "original_question": user_question,
                     "enhanced_question": enhanced_question,
                     "query_type": query_type,
-                    "progress": 40
+                    "progress": 35
                 }
             else:
                 yield {
@@ -110,7 +146,7 @@ class EnhancedRAGEngine:
                     "original_question": user_question,
                     "enhanced_question": user_question,
                     "query_type": query_type,
-                    "progress": 40
+                    "progress": 35
                 }
             
             # STEP 2: Vector Retrieval
@@ -118,7 +154,7 @@ class EnhancedRAGEngine:
                 "step": "vector_retrieval",
                 "status": "processing",
                 "message": "🔍 Searching Mount Rainier knowledge base...",
-                "progress": 50
+                "progress": 45
             }
             
             retrieved_docs = self.vectorstore.similarity_search(
@@ -131,7 +167,7 @@ class EnhancedRAGEngine:
                     "step": "vector_retrieval",
                     "status": "no_results",
                     "message": "❌ No relevant documents found",
-                    "progress": 60
+                    "progress": 55
                 }
                 
                 yield {
@@ -152,7 +188,7 @@ class EnhancedRAGEngine:
                 "status": "completed", 
                 "message": f"📚 Found {len(retrieved_docs)} relevant documents from {len(unique_sources)} sources",
                 "sources_found": unique_sources,
-                "progress": 60
+                "progress": 55
             }
             
             # STEP 3: Response Generation
@@ -265,6 +301,24 @@ RELEVANT INFORMATION:
 
 Please provide a helpful, accurate answer based on the information provided. If the information doesn't fully answer the question, say so. Always mention specific details from the context when relevant.
 
+CRITICAL: Follow this EXACT formatting template:
+
+<strong>Response Title Here</strong><br/><br/>
+
+1. <strong>First Category:</strong> Brief description here<br/><br/>
+
+2. <strong>Second Category:</strong> Brief description here<br/><br/>
+
+3. <strong>Third Category:</strong> Brief description here<br/><br/>
+
+MANDATORY RULES:
+- Use HTML only (never markdown **text**)
+- Every numbered section must end with <br/><br/>
+- Never put multiple items on the same line
+- Use <strong>text</strong> for bold formatting
+- If you need to list multiple items within a section, separate them with " - " (dash-space)
+- Keep each numbered section on its own paragraph
+
 ANSWER:"""
 
         try:
@@ -288,7 +342,15 @@ ANSWER:"""
     def _get_system_prompt(self, query_type: str) -> str:
         """Get system prompt based on query type"""
         
-        base_prompt = """You are a knowledgeable Mount Rainier National Park guide. Provide helpful, accurate information about the park based on the context provided."""
+        base_prompt = """You are a knowledgeable Mount Rainier National Park guide. Provide helpful, accurate information about the park based on the context provided.
+
+IMPORTANT FORMATTING RULES:
+- Use HTML formatting for your response (not markdown)
+- Use <strong>text</strong> for bold headings and important terms
+- Use <br/><br/> for paragraph breaks  
+- Use numbered lists with proper spacing: 1. <strong>Item:</strong> Description<br/><br/>
+- Keep responses clear, well-structured, and easy to read
+- Always use HTML tags instead of markdown formatting"""
         
         type_specific_prompts = {
             "trail": f"{base_prompt} Focus on trail details, difficulty levels, distances, and practical hiking advice.",
@@ -300,6 +362,56 @@ ANSWER:"""
         }
         
         return type_specific_prompts.get(query_type, base_prompt)
+    
+    def _handle_conversational_input(self, user_question: str, query_type: str) -> str:
+        """Handle conversational inputs that don't need RAG processing"""
+        
+        question_lower = user_question.lower().strip()
+        
+        if query_type == "greeting":
+            return (
+                "<strong>Hello! 🏔️</strong><br/><br/>"
+                "I'm your Mount Rainier guide. I can help you with trails, climbing routes, permits, "
+                "gear recommendations, weather conditions, and safety information.<br/><br/>"
+                "What would you like to know?"
+            )
+        
+        elif query_type == "system_info":
+            return (
+                "I'm your Mount Rainier AI guide with knowledge about the park's 260+ miles of trails, "
+                "climbing routes to the 14,411-foot summit, permits, safety guidelines, and gear recommendations. "
+                "How can I help you plan your Mount Rainier adventure? 🗻"
+            )
+        
+        elif query_type == "courtesy":
+            if any(word in question_lower for word in ["thank", "thanks"]):
+                return (
+                    "You're welcome! 😊 Stay safe and enjoy your Mount Rainier adventure! 🏔️"
+                )
+            else:  # goodbye
+                return (
+                    "Safe travels! 👋 Remember to check conditions and carry the 10 essentials. Enjoy Mount Rainier! 🏔️"
+                )
+        
+        elif query_type == "off_topic":
+            return (
+                "I specialize in Mount Rainier National Park information! 🏔️ "
+                "I can help with trails, climbing routes, permits, weather, safety, and gear. "
+                "What would you like to know about Mount Rainier? 🗻"
+            )
+        
+        elif query_type == "empty":
+            return (
+                "I'm here to help with your Mount Rainier questions! 🏔️ "
+                "Ask me about trails, climbing, permits, weather, safety, or gear. What interests you? 🗻"
+            )
+        
+        else:
+            # Fallback for any other conversational type
+            return (
+                "Hello! I'm your Mount Rainier guide. 🏔️ "
+                "What would you like to know about hiking, climbing, permits, weather, or safety? 🗻"
+            )
 
 # For backward compatibility, keep the original class as an alias
 class RAGEngine(EnhancedRAGEngine):

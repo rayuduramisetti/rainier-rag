@@ -201,130 +201,259 @@ class MountRainierHandler(BaseHTTPRequestHandler):
             z-index: 1;
         }
         
-        /* Chat Interface - Top Right with integrated status */
+        /* Chat Interface - Modern Mountain Design */
         .chat-section {
             position: fixed;
             top: 20px; right: 20px;
-            width: 450px; height: 680px;
+            width: 420px; height: 680px;
             z-index: 1000;
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(15px);
-            border-radius: 15px;
-            padding: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            background: linear-gradient(145deg, rgba(15, 32, 56, 0.95), rgba(25, 42, 66, 0.90));
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 24px;
+            border: 2px solid rgba(135, 206, 235, 0.3);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6), 
+                        0 0 30px rgba(135, 206, 235, 0.1);
             display: flex;
             flex-direction: column;
         }
         
-
-        
-        /* Status Panel - Simplified */
+        /* Status Panel - Mountain Theme - Professional */
         .status-panel {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            padding: 12px;
-            margin-bottom: 15px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: linear-gradient(135deg, rgba(70, 130, 180, 0.4), rgba(100, 149, 237, 0.3));
+            border-radius: 20px;
+            padding: 16px;
+            margin-bottom: 18px;
+            border: 2px solid rgba(135, 206, 235, 0.5);
+            box-shadow: inset 0 3px 15px rgba(135, 206, 235, 0.15),
+                        0 4px 16px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(15px);
         }
         
         .status-title {
-            font-size: 1.1em;
-            font-weight: bold;
-            color: #4CAF50;
+            font-size: 1.2em;
+            font-weight: 700;
+            background: linear-gradient(45deg, #87CEEB, #E0F6FF, #B0E0E6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             text-align: center;
             margin: 0;
+            text-shadow: 0 2px 15px rgba(135, 206, 235, 0.4);
+            letter-spacing: 0.5px;
         }
         
         .chat-history {
             flex: 1;
             overflow-y: auto;
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 10px;
-            padding: 15px;
-            margin-bottom: 15px;
+            background: rgba(5, 15, 25, 0.5);
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 12px;
+            border: 2px solid rgba(135, 206, 235, 0.3);
+            min-height: 250px;
+            backdrop-filter: blur(20px);
+            box-shadow: inset 0 6px 24px rgba(0, 0, 0, 0.4),
+                        0 6px 24px rgba(135, 206, 235, 0.15);
+            /* Hide scrollbar */
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none; /* IE and Edge */
+        }
+        
+        .chat-history::-webkit-scrollbar {
+            display: none; /* Chrome, Safari, Opera */
         }
         
         .message {
-            margin-bottom: 15px;
-            padding: 12px;
-            border-radius: 10px;
+            margin-bottom: 16px;
+            padding: 16px 20px;
+            border-radius: 18px;
             max-width: 90%;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            animation: messageSlide 0.4s ease-out;
+            line-height: 1.6;
+            font-size: 14px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        @keyframes messageSlide {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         
         .user-message {
-            background: rgba(33, 150, 243, 0.4);
+            background: linear-gradient(135deg, rgba(70, 130, 180, 0.8), rgba(100, 149, 237, 0.7));
             margin-left: auto;
             text-align: right;
+            border: 2px solid rgba(135, 206, 235, 0.4);
+            color: #E0F6FF;
+            font-weight: 500;
+            box-shadow: 0 4px 12px rgba(70, 130, 180, 0.4);
         }
         
         .ai-message {
-            background: rgba(76, 175, 80, 0.4);
-            border-left: 4px solid #4CAF50;
+            background: linear-gradient(135deg, rgba(25, 25, 40, 0.95), rgba(35, 35, 55, 0.9));
+            border: 2px solid rgba(135, 206, 235, 0.4);
+            border-left: 4px solid #87CEEB;
+            border-radius: 18px;
+            color: #F0F8FF;
+            line-height: 1.6;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4),
+                        inset 0 2px 8px rgba(135, 206, 235, 0.1);
+            backdrop-filter: blur(12px);
+            overflow: hidden;
+        }
+        
+        /* Welcome message specific styling */
+        .ai-message:first-child {
+            background: linear-gradient(135deg, rgba(70, 130, 180, 0.3), rgba(100, 149, 237, 0.25));
+            border: 2px solid rgba(135, 206, 235, 0.5);
+            border-left: 4px solid #87CEEB;
+            color: #E0F6FF;
+            font-weight: 500;
+            font-size: 14px;
+            text-align: center;
+            margin-bottom: 16px;
+        }
+        
+        .enhanced-query-message {
+            background: linear-gradient(135deg, rgba(135, 206, 235, 0.08), rgba(176, 224, 230, 0.06));
+            border: 1px solid rgba(135, 206, 235, 0.25);
+            border-left: 3px solid #87CEEB;
+            border-radius: 12px;
+            color: #E0F6FF;
+            font-size: 13px;
+            padding: 12px 16px;
+            margin-bottom: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(8px);
+        }
+        
+        /* Typography within messages */
+        .message strong {
+            color: #87CEEB;
+            font-weight: 700;
+            text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+        }
+        
+        .message br {
+            line-height: 2.2;
+        }
+        
+        .message small {
+            font-size: 11px;
+            opacity: 0.8;
+            display: block;
+            margin-top: 16px;
+            padding-top: 12px;
+            border-top: 1px solid rgba(135, 206, 235, 0.25);
         }
         
         .hiker-message {
-            background: rgba(255, 193, 7, 0.4);
-            border-left: 4px solid #FFC107;
+            background: linear-gradient(135deg, rgba(255, 140, 0, 0.3), rgba(255, 165, 0, 0.2));
+            border-left: 4px solid #FFB347;
             font-style: italic;
+            color: #FFF8DC;
+            border: 1px solid rgba(255, 180, 71, 0.3);
         }
         
+        /* Input Section */
         .input-section {
             display: flex;
-            gap: 10px;
+            gap: 12px;
+            margin-top: 0;
         }
         
         .question-input {
             flex: 1;
-            padding: 12px;
-            border: none;
-            border-radius: 8px;
-            background: rgba(255, 255, 255, 0.9);
-            color: #333;
+            padding: 14px;
+            border: 2px solid rgba(135, 206, 235, 0.4);
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.97);
+            color: #1e293b;
             font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.1),
+                        0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .question-input:focus {
+            outline: none;
+            border-color: #87CEEB;
+            box-shadow: 0 0 15px rgba(135, 206, 235, 0.3),
+                        inset 0 2px 8px rgba(0, 0, 0, 0.1);
+            transform: translateY(-1px);
+            background: rgba(255, 255, 255, 1);
         }
         
         .ask-button {
-            padding: 12px 20px;
-            background: #4CAF50;
+            padding: 14px 22px;
+            background: linear-gradient(135deg, #4682B4, #87CEEB, #5A9BD4);
             color: white;
             border: none;
-            border-radius: 8px;
+            border-radius: 16px;
             cursor: pointer;
-            font-weight: bold;
-            transition: background-color 0.3s;
+            font-weight: 700;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 12px rgba(70, 130, 180, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
         }
         
-        .ask-button:hover {
-            background: #45a049;
+        .ask-button:hover:not(:disabled) {
+            background: linear-gradient(135deg, #5A9BD4, #9FD3E8, #6BB6FF);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(70, 130, 180, 0.7);
         }
         
         .ask-button:disabled {
-            background: #666;
+            background: linear-gradient(135deg, #666, #888);
             cursor: not-allowed;
+            transform: none;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            opacity: 0.7;
         }
         
-        /* Quick Questions */
+        /* Quick Questions Section - Fixed positioning and spacing */
         .quick-questions {
-            margin-bottom: 15px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px 10px;
+            margin-bottom: 18px;
+            padding: 0;
         }
         
         .quick-btn {
             display: inline-block;
-            margin: 3px;
-            padding: 6px 12px;
-            background: rgba(255, 255, 255, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            border-radius: 15px;
-            color: white;
+            padding: 10px 14px;
+            background: linear-gradient(135deg, rgba(135, 206, 235, 0.25), rgba(176, 224, 230, 0.2));
+            border: 2px solid rgba(135, 206, 235, 0.5);
+            border-radius: 16px;
+            color: #E0F6FF;
             text-decoration: none;
-            font-size: 12px;
+            font-size: 11px;
+            font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2),
+                        inset 0 1px 4px rgba(135, 206, 235, 0.1);
+            flex: 0 1 calc(50% - 4px);
+            text-align: center;
+            min-width: 110px;
+            letter-spacing: 0.3px;
         }
         
         .quick-btn:hover {
-            background: rgba(255, 255, 255, 0.3);
+            background: linear-gradient(135deg, rgba(135, 206, 235, 0.4), rgba(176, 224, 230, 0.35));
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(135, 206, 235, 0.3),
+                        inset 0 2px 6px rgba(135, 206, 235, 0.15);
+            border-color: #87CEEB;
+            color: #F0F8FF;
         }
         
         /* Hiker Marker on Map */
@@ -457,18 +586,17 @@ class MountRainierHandler(BaseHTTPRequestHandler):
     <div class="chat-section">
         <!-- Simplified Status Panel -->
         <div class="status-panel">
-            <div class="status-title">🏔️ Mount Rainier Guide</div>
+            <div class="status-title">Mount Rainier Guide</div>
         </div>
         
         <div class="chat-history" id="chatHistory">
-            <div class="hiker-message">
-                🥾 Starting from Paradise! The route ahead looks challenging but rewarding. What can I help you plan for your adventure?
-            </div>
             <div class="ai-message">
-                <strong>🏔️ Mount Rainier Guide:</strong> Welcome! I'm your AI hiking companion. I can help you with trails, permits, weather, safety, gear recommendations, and anything else about Mount Rainier. Ask me anything!
+                Welcome! I can help you with trails, permits, weather, safety, and gear for Mount Rainier.<br/><br/>
+                What would you like to know?
             </div>
         </div>
         
+        <!-- Quick Questions - Outside chat history to prevent spacing issues -->
         <div class="quick-questions">
             <div class="quick-btn" onclick="askQuestion('What gear do I need for winter climbing?')">Winter gear? ❄️</div>
             <div class="quick-btn" onclick="askQuestion('Do I need permits for climbing?')">Permits? 📋</div>
@@ -766,10 +894,7 @@ class MountRainierHandler(BaseHTTPRequestHandler):
             // Clear input and disable button
             input.value = '';
             button.disabled = true;
-            button.textContent = 'Thinking...';
-            
-            // Add loading message
-            const loadingId = addMessage('🤔 Let me think about that...', 'ai', true);
+            button.textContent = 'Asking...';
             
             try {
                 const response = await fetch('/ask', {
@@ -785,18 +910,28 @@ class MountRainierHandler(BaseHTTPRequestHandler):
                 
                 const data = await response.json();
                 
-                // Remove loading message
-                removeMessage(loadingId);
-                
                 if (data.error) {
-                    addMessage(`❌ Error: ${data.error}`, 'ai');
+                    addMessage(`❌ ${data.error}`, 'ai');
                 } else {
-                    // Add AI response
-                    let response = `<strong>🏔️ Mount Rainier Guide:</strong> ${data.answer}`;
+                    // Show enhanced query if it's different from the original
+                    if (data.enhanced_question && 
+                        data.enhancement_used && 
+                        data.enhanced_question !== question &&
+                        data.enhanced_question.toLowerCase() !== question.toLowerCase()) {
+                        
+                        const enhancedQueryContent = `
+                            <strong style="color: #87CEEB;">🔍 Rephrased Query:</strong><br/>
+                            <em>"${data.enhanced_question}"</em>
+                        `;
+                        addMessage(enhancedQueryContent, 'enhanced-query');
+                    }
                     
-                    // Add sources if available
+                    // Add AI response - cleaner format
+                    let response = data.answer;
+                    
+                    // Add sources if available - more subtle
                     if (data.sources && data.sources.length > 0) {
-                        response += `<br><br><small><strong>Sources:</strong> ${data.sources.join(', ')}</small>`;
+                        response += `<br/><br/><small style="opacity: 0.7;">📚 ${data.sources.join(' • ')}</small>`;
                     }
                     
                     addMessage(response, 'ai');
@@ -804,8 +939,7 @@ class MountRainierHandler(BaseHTTPRequestHandler):
                 }
                 
             } catch (error) {
-                removeMessage(loadingId);
-                addMessage(`❌ Error: ${error.message}`, 'ai');
+                addMessage(`❌ Connection error. Please try again.`, 'ai');
             } finally {
                 // Re-enable button
                 button.disabled = false;
@@ -815,32 +949,23 @@ class MountRainierHandler(BaseHTTPRequestHandler):
         }
         
         // Add message to chat history
-        function addMessage(content, type, isLoading = false) {
+        function addMessage(content, type) {
             const chatHistory = document.getElementById('chatHistory');
             const messageDiv = document.createElement('div');
-            const messageId = Date.now() + Math.random();
             
-            messageDiv.className = `message ${type}-message`;
-            messageDiv.id = `msg-${messageId}`;
-            messageDiv.innerHTML = content;
-            
-            if (isLoading) {
-                messageDiv.classList.add('loading');
+            if (type === 'enhanced-query') {
+                messageDiv.className = 'message enhanced-query-message';
+            } else {
+                messageDiv.className = `message ${type}-message`;
             }
+            
+            messageDiv.innerHTML = content;
             
             chatHistory.appendChild(messageDiv);
             chatHistory.scrollTop = chatHistory.scrollHeight;
-            
-            return messageId;
         }
         
-        // Remove message from chat
-        function removeMessage(messageId) {
-            const message = document.getElementById(`msg-${messageId}`);
-            if (message) {
-                message.remove();
-            }
-        }
+
         
         // Initialize when page loads
         window.addEventListener('load', init);

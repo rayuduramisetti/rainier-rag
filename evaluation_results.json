@@ -1,0 +1,102 @@
+[
+  {
+    "query": {
+      "query": "hello",
+      "type": "greeting",
+      "description": "Simple greeting",
+      "should": "Be friendly and conversational"
+    },
+    "response": {
+      "success": true,
+      "answer": "Based on the provided information, the details focus more on the hazards and preparation required for hiking and climbing in Mount Rainier National Park rather than specific trail conditions. For the most up-to-date trail conditions for hiking at Mount Rainier National Park, it is recommended to contact the Park Dispatch at (360) 569-6600. They should have the latest information on trail conditions, weather updates, and any closures or alerts that hikers should be aware of before setting out on a hike in the park.",
+      "sources": [
+        "nps_safety",
+        "nps_climbing"
+      ]
+    },
+    "judgment": {
+      "score": 2,
+      "reasoning": "The response is not appropriate for the query type. The user simply said 'hello', which is a greeting, and the AI system responded with detailed information about hiking and climbing in Mount Rainier National Park. While the information provided is accurate and focused on Mount Rainier, it is not helpful in the context of the user's query."
+    }
+  },
+  {
+    "query": {
+      "query": "What are the best hiking trails on Mount Rainier?",
+      "type": "trails",
+      "description": "Trail recommendations",
+      "should": "Provide specific trail names and details"
+    },
+    "response": {
+      "success": true,
+      "answer": "Based on the information provided, the most popular hiking trails at Mount Rainier National Park in terms of difficulty level, distance, and elevation gain are as follows:\n\n1. **Skyline Trail Loop (1.2 miles):** An easy trail starting from Paradise with an elevation gain of 200 feet, offering stunning views of the mountain and subalpine meadows.\n2. **Silver Falls Trail (3 miles):** A moderate trail with a moderate elevation gain of 680 feet, taking you through a beautiful waterfall hike in the old-growth forest.\n3. **Tolmie Peak Trail (6.5 miles):** A moderate trail leading to a fire lookout with panoramic views and an elevation gain of 1,010 feet.\n4. **Mount Fremont Lookout (5.6 miles):** A moderate trail accessible from the Sunrise area, leading to a historic fire lookout with an elevation gain of 900 feet.\n5. **Naches Peak Loop (3.5 miles):** A moderate trail offering a scenic loop with wildflower meadows and mountain views.\n\nThese trails provide a range of difficulty levels and distances for hikers to enjoy the beauty of Mount Rainier National Park. If you are looking for more challenging hikes, you may want to consider exploring the climbing routes mentioned in the documents, as they offer more technical and demanding experiences.",
+      "sources": [
+        "nps_climbing",
+        "nps_trails"
+      ]
+    },
+    "judgment": {
+      "score": 10,
+      "reasoning": "The response is highly appropriate for the query type, providing specific trail names, distances, difficulty levels, and unique features of each trail. It is helpful and accurate, offering a range of options for different skill levels. The response stays focused on Mount Rainier, providing information relevant to the park and its hiking trails. It also suggests more challenging options for experienced hikers, which adds to its helpfulness."
+    }
+  },
+  {
+    "query": {
+      "query": "How do I get a climbing permit?",
+      "type": "permits",
+      "description": "Permit information",
+      "should": "Give permit process details"
+    },
+    "response": {
+      "success": true,
+      "answer": "To obtain a climbing permit at Mount Rainier National Park, you must register for all climbs above 10,000 feet or on glaciated terrain. The climbing fee is $52 per person for both annual and single climb permits. Inexperienced climbers may need to undergo a skills check. It's important to note that climbing above 10,000 feet without a permit is not allowed. The climbing season typically runs from May through September. Recommended gear includes mountaineering boots, crampons, ice axe, helmet, and glacier travel equipment. Due to hazards like crevasse falls, rockfall, altitude sickness, and rapidly changing weather, it's crucial to be well-prepared. Many climbers opt to use guide services for their first attempt.",
+      "sources": [
+        "nps_permits",
+        "nps_climbing"
+      ]
+    },
+    "judgment": {
+      "score": 9,
+      "reasoning": "The response is appropriate for the query type as it provides detailed information on how to obtain a climbing permit for Mount Rainier. It is helpful and accurate, providing the cost of the permit, the altitude at which a permit is required, and the typical climbing season. It also provides additional useful information about recommended gear and potential hazards. The response stays focused on Mount Rainier. However, it could be improved by providing information on where or how to register for the permit, hence the score of 9 instead of 10."
+    }
+  },
+  {
+    "query": {
+      "query": "What gear do I need for climbing?",
+      "type": "gear",
+      "description": "Equipment recommendations",
+      "should": "List essential climbing gear"
+    },
+    "response": {
+      "success": true,
+      "answer": "For climbing in Mount Rainier National Park, essential gear includes:\n\n1. **Climbing Essentials:**\n   - Helmet\n   - Harness\n   - Ice axe\n   - Crampons\n   - Ropes (for technical routes)\n   - Carabiners and slings\n\n2. **Clothing:**\n   - Layered clothing for changing weather conditions\n   - Insulated jacket\n   - Waterproof and windproof jacket and pants\n   - Gloves and mittens\n   - Climbing boots\n\n3. **Navigation:**\n   - Map of the area\n   - Compass\n   - GPS device (optional)\n\n4. **Sun Protection:**\n   - Sunglasses with UV protection\n   - Sunscreen\n   - Lip balm with SPF\n\n5. **First Aid Kit:**\n   - Basic first aid supplies\n   - Medications for altitude sickness if needed\n\n6. **Food and Hydration:**\n   - High-energy snacks\n   - Water or hydration system\n   - Water purification tablets\n\n7. **Emergency Shelter:**\n   - Lightweight tent or bivy sack\n\n8. **Other:**\n   - Headlamp with extra batteries\n   - Repair kit (for gear and equipment)\n   - Personal items (ID, permits, etc.)\n\nGiven the risks and challenges in Mount Rainier's alpine environment, it's crucial to be well-prepared, physically fit, and experienced in mountaineering. For technical routes like Liberty Ridge or Kautz Glacier, additional specialized gear and skills are necessary. Always check current conditions, obtain required permits, and consider hiring a guide if needed.",
+      "sources": [
+        "nps_safety",
+        "nps_climbing"
+      ]
+    },
+    "judgment": {
+      "score": 10,
+      "reasoning": "The response is highly appropriate for the query type, providing a comprehensive list of gear needed for climbing Mount Rainier. It is helpful and accurate, covering all the essential categories of gear, from climbing essentials to clothing, navigation, sun protection, first aid, food and hydration, emergency shelter, and other miscellaneous items. The response stays focused on Mount Rainier, even mentioning specific technical routes on the mountain and the need for additional specialized gear and skills. It also emphasizes the importance of preparation, fitness, experience, checking conditions, obtaining permits, and considering a guide, all of which are relevant to climbing Mount Rainier."
+    }
+  },
+  {
+    "query": {
+      "query": "What's the capital of France?",
+      "type": "off_topic",
+      "description": "Unrelated question",
+      "should": "Redirect to Mount Rainier topics"
+    },
+    "response": {
+      "success": true,
+      "answer": "The highest peak in Mount Rainier National Park is Mount Rainier itself, standing at 14,411 feet. It is an active stratovolcano heavily glaciated with 25 major glaciers and numerous smaller ones covering about 35 square miles.",
+      "sources": [
+        "nps_official",
+        "nps_climbing"
+      ]
+    },
+    "judgment": {
+      "score": 7,
+      "reasoning": "The response is appropriate for the query type as it redirects to Mount Rainier topics instead of answering the off-topic question about the capital of France. The information provided is accurate and focused on Mount Rainier. However, it is not helpful in the context of the user's query, hence the score is not full."
+    }
+  }
+]

@@ -112,7 +112,39 @@ Keep the user's original intent but make the question more searchable."""
     
     def classify_query_type(self, question: str) -> str:
         """Simple rule-based query type classification"""
-        question_lower = question.lower()
+        question_lower = question.lower().strip()
+        
+        # Handle empty or very short queries
+        if len(question_lower) == 0:
+            return "empty"
+        
+        # Conversational/Greeting keywords - HIGHEST PRIORITY
+        greeting_patterns = [
+            "hello", "hi", "hey", "good morning", "good afternoon", "good evening",
+            "greetings", "howdy", "what's up", "how are you", "how's it going"
+        ]
+        if any(pattern in question_lower for pattern in greeting_patterns):
+            return "greeting"
+        
+        # Conversational questions about the system itself
+        system_patterns = [
+            "who are you", "what are you", "what can you do", "help me",
+            "what do you know", "can you help", "how do you work"
+        ]
+        if any(pattern in question_lower for pattern in system_patterns):
+            return "system_info"
+        
+        # Thank you / goodbye patterns
+        if any(word in question_lower for word in ["thank", "thanks", "goodbye", "bye", "see you"]):
+            return "courtesy"
+        
+        # Check for obviously off-topic questions (common non-Mount Rainier topics)
+        off_topic_indicators = [
+            "capital of", "president of", "what is the weather in", "how to cook",
+            "stock market", "movie", "sports", "politics", "celebrity"
+        ]
+        if any(indicator in question_lower for indicator in off_topic_indicators):
+            return "off_topic"
         
         # Trail-related keywords
         if any(word in question_lower for word in ["trail", "hike", "hiking", "walk", "path", "route", "trek"]):
