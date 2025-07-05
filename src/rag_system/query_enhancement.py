@@ -110,68 +110,42 @@ Keep the user's original intent but make the question more searchable."""
         
         return type_specific_prompts.get(query_type, base_prompt)
     
-    def classify_query_type(self, question: str) -> str:
-        """Simple rule-based query type classification"""
-        question_lower = question.lower().strip()
-        
-        # Handle empty or very short queries
-        if len(question_lower) == 0:
-            return "empty"
-        
-        # Conversational/Greeting keywords - HIGHEST PRIORITY
-        greeting_patterns = [
-            "hello", "hi", "hey", "good morning", "good afternoon", "good evening",
-            "greetings", "howdy", "what's up", "how are you", "how's it going"
-        ]
-        if any(pattern in question_lower for pattern in greeting_patterns):
-            return "greeting"
-        
-        # Conversational questions about the system itself
-        system_patterns = [
-            "who are you", "what are you", "what can you do", "help me",
-            "what do you know", "can you help", "how do you work"
-        ]
-        if any(pattern in question_lower for pattern in system_patterns):
-            return "system_info"
-        
-        # Thank you / goodbye patterns
-        if any(word in question_lower for word in ["thank", "thanks", "goodbye", "bye", "see you"]):
-            return "courtesy"
-        
-        # Check for obviously off-topic questions (common non-Mount Rainier topics)
-        off_topic_indicators = [
-            "capital of", "president of", "what is the weather in", "how to cook",
-            "stock market", "movie", "sports", "politics", "celebrity"
-        ]
-        if any(indicator in question_lower for indicator in off_topic_indicators):
-            return "off_topic"
-        
-        # Trail-related keywords
-        if any(word in question_lower for word in ["trail", "hike", "hiking", "walk", "path", "route", "trek"]):
-            return "trail"
-        
-        # Weather-related keywords  
-        elif any(word in question_lower for word in ["weather", "temperature", "rain", "snow", "conditions", "forecast"]):
-            return "weather"
-        
-        # Permit-related keywords
-        elif any(word in question_lower for word in ["permit", "reservation", "fee", "cost", "book", "register"]):
-            return "permits"
-        
-        # Safety-related keywords
-        elif any(word in question_lower for word in ["safety", "dangerous", "hazard", "emergency", "rescue", "risk"]):
-            return "safety"
-        
-        # Gear-related keywords
-        elif any(word in question_lower for word in ["gear", "equipment", "pack", "clothing", "boots", "backpack"]):
-            return "gear"
-        
-        # Climbing-related keywords
-        elif any(word in question_lower for word in ["climb", "summit", "mountaineer", "ascent", "glacier", "technical"]):
-            return "climbing"
-        
-        else:
-            return "general"
+    async def classify_query_type(self, question: str) -> dict:
+        """
+        LLM-based query type classification. Returns a dict with 'type' and optional 'name'.
+        """
+        system_prompt = (
+            "You are an intent classifier for a Mount Rainier National Park AI guide. "
+            "Classify the user's query into one of these types: "
+            "greeting, system_info, courtesy, off_topic, empty, alltrails, trail, weather, permits, safety, gear, climbing, user_introduction. "
+            "Use 'alltrails' ONLY for queries about lists or recommendations of hikes/trails (e.g., 'show me hikes', 'best trails', 'recommend hikes', 'list of trails'). "
+            "If the query mentions a specific trail name (e.g., 'Skyline Trail', 'Burroughs Mountain'), classify as 'trail'. "
+            "If the user is introducing themselves (e.g., 'my name is ...', 'I am ...', 'call me ...'), classify as user_introduction and extract the name. "
+            "If not, set name to null. "
+            "Respond in JSON: {\"type\": ..., \"name\": ...} (name is null unless user_introduction)."
+        )
+        user_message = f"User Query: {question.strip()}"
+        try:
+            client = openai.OpenAI(api_key=self.config.OPENAI_API_KEY)
+            response = client.chat.completions.create(
+                model="gpt-3.5-turbo",
+                messages=[
+                    {"role": "system", "content": system_prompt},
+                    {"role": "user", "content": user_message}
+                ],
+                max_tokens=50,
+                temperature=0
+            )
+            import json as _json
+            content = response.choices[0].message.content
+            if not content:
+                return {"type": "general", "name": None}
+            result = _json.loads(content)
+            return result
+        except Exception as e:
+            logger.error(f"LLM classify_query_type failed: {e}")
+            # Fallback: treat as general
+            return {"type": "general", "name": None}
 
 # Example usage and testing
 async def test_query_enhancement():
@@ -195,12 +169,12 @@ async def test_query_enhancement():
         print(f"\n📝 Original: '{question}'")
         
         # Classify query type
-        query_type = enhancer.classify_query_type(question)
-        print(f"🏷️  Type: {query_type}")
+        query_type = await enhancer.classify_query_type(question)
+        print(f"🏷️  Type: {query_type['type']}")
         
         # Enhance query
         if enhancer.config.OPENAI_API_KEY and enhancer.config.OPENAI_API_KEY != "your_openai_api_key_here":
-            result = await enhancer.enhance_query(question, query_type)
+            result = await enhancer.enhance_query(question, query_type['type'])
             print(f"✨ Enhanced: '{result['enhanced_question']}'")
             print(f"✅ Success: {result['enhancement_successful']}")
         else:

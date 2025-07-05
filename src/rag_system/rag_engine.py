@@ -2,13 +2,14 @@
 """
 Enhanced RAG Engine for Mount Rainier System
 Now includes Query Enhancement + Vector Retrieval + LLM Generation
-WITH STREAMING PROGRESS UPDATES
+WITH STREAMING PROGRESS UPDATES + REAL-TIME WEATHER INTEGRATION
 """
 
 import asyncio
 from typing import List, Dict, Any, Optional, AsyncGenerator
 from datetime import datetime
 import logging
+import re
 
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_community.embeddings.sentence_transformer import SentenceTransformerEmbeddings
@@ -25,15 +26,20 @@ from src.data_sources.web_search_api import WebSearchDataSource
 from src.data_sources.alltrails_api import AllTrailsDataSource
 from src.rag_system.prompt_manager import PromptManager
 from .query_enhancement import QueryEnhancer
+from alltrails_integration import AllTrailsIntegration, get_alltrails_response
 
 logger = logging.getLogger(__name__)
 
 class EnhancedRAGEngine:
-    """Enhanced RAG Engine with Query Enhancement and Streaming Updates"""
+    """Enhanced RAG Engine with Query Enhancement, Streaming Updates, and Real-time Weather Integration"""
     
     def __init__(self):
         self.config = Config()
         self.query_enhancer = QueryEnhancer()
+        
+        # Initialize data sources
+        self.weather_source = WeatherDataSource()
+        self.alltrails_integration = AllTrailsIntegration()
         
         # Initialize embeddings
         self.embeddings = SentenceTransformerEmbeddings(
@@ -47,15 +53,16 @@ class EnhancedRAGEngine:
             collection_name="langchain"  # Using the existing collection with documents
         )
         
-        logger.info("Enhanced RAG Engine initialized with streaming capability")
+        logger.info("RAG Engine initialized")
     
     async def get_answer_stream(self, user_question: str) -> AsyncGenerator[Dict[str, Any], None]:
         """
-        Complete Enhanced RAG Pipeline with Streaming Updates:
+        Complete Enhanced RAG Pipeline with Streaming Updates and Weather Integration:
         1. Query Classification & Conversational Handling
-        2. Query Enhancement (LLM) - with progress
-        3. Vector Retrieval - with progress
-        4. Response Generation (LLM) - with progress
+        2. Weather Data Fetching (if weather-related)
+        3. Query Enhancement (LLM) - with progress
+        4. Vector Retrieval - with progress
+        5. Response Generation (LLM) - with progress
         
         Args:
             user_question: Raw user question
@@ -72,16 +79,37 @@ class EnhancedRAGEngine:
                 "progress": 5
             }
             
-            # Classify query type
-            query_type = self.query_enhancer.classify_query_type(user_question)
+            # LLM-based classification
+            classification = await self.query_enhancer.classify_query_type(user_question)
+            query_type = classification.get("type", "general")
+            user_name = classification.get("name")
             
             yield {
                 "step": "query_classification", 
                 "status": "completed",
                 "message": f"🏷️ Detected query type: {query_type}",
                 "query_type": query_type,
+                "user_name": user_name,
                 "progress": 10
             }
+            
+            # Handle user introduction
+            if query_type == "user_introduction" and user_name:
+                response = f"<strong>Nice to meet you, {user_name}!</strong><br/><br/>How can I help you with Mount Rainier today?"
+                yield {
+                    "step": "final_result",
+                    "status": "completed",
+                    "original_question": user_question,
+                    "enhanced_question": user_question,
+                    "query_type": query_type,
+                    "answer": response,
+                    "sources": [],
+                    "enhancement_used": False,
+                    "conversation_mode": True,
+                    "progress": 100,
+                    "message": "✨ Personalized greeting ready!"
+                }
+                return
             
             # Handle conversational inputs directly (skip RAG pipeline)
             if query_type in ["greeting", "system_info", "courtesy", "off_topic", "empty"]:
@@ -102,29 +130,115 @@ class EnhancedRAGEngine:
                 }
                 return
             
-            # STEP 1: Query Enhancement (for informational queries)
+            # Handle AllTrails queries directly (list/recommendation only)
+            if query_type == "alltrails" or self._is_alltrails_related(user_question):
+                yield {
+                    "step": "alltrails_lookup",
+                    "status": "processing",
+                    "message": "🥾 Looking up hiking information on AllTrails...",
+                    "progress": 30
+                }
+                alltrails_response = get_alltrails_response(user_question)
+                yield {
+                    "step": "final_result",
+                    "status": "completed",
+                    "original_question": user_question,
+                    "enhanced_question": user_question,
+                    "query_type": "alltrails",
+                    "answer": alltrails_response,
+                    "sources": [{"title": "AllTrails Mount Rainier", "url": "https://www.alltrails.com/parks/us/washington/mount-rainier-national-park"}],
+                    "enhancement_used": False,
+                    "alltrails_mode": True,
+                    "progress": 100,
+                    "message": "🥾 AllTrails hiking information ready!"
+                }
+                return
+                
+                yield {
+                    "step": "final_result",
+                    "status": "completed",
+                    "original_question": user_question,
+                    "enhanced_question": user_question,
+                    "query_type": query_type,
+                    "answer": conversational_response,
+                    "sources": [],
+                    "enhancement_used": False,
+                    "conversation_mode": True,
+                    "progress": 100,
+                    "message": "✨ Conversational response ready!"
+                }
+                return
+            
+            # STEP 1: Weather Data Fetching (if weather-related)
+            current_weather = None
+            weather_forecast = None
+            
+            if query_type == "weather" or self._is_weather_related(user_question):
+                yield {
+                    "step": "weather_fetch",
+                    "status": "processing",
+                    "message": "🌤️ Fetching current weather data from Mount Rainier...",
+                    "progress": 15
+                }
+                
+                try:
+                    # Fetch current weather
+                    current_weather = await self.weather_source.get_current_weather()
+                    
+                    yield {
+                        "step": "weather_fetch",
+                        "status": "processing",
+                        "message": f"🌡️ Current: {current_weather['temperature']['current']}°F, {current_weather['conditions']['description']}",
+                        "weather_data": current_weather,
+                        "progress": 18
+                    }
+                    
+                    # Fetch forecast if needed
+                    if "forecast" in user_question.lower() or "tomorrow" in user_question.lower() or "week" in user_question.lower():
+                        yield {
+                            "step": "weather_fetch",
+                            "status": "processing",
+                            "message": "📅 Fetching weather forecast...",
+                            "progress": 20
+                        }
+                        
+                        weather_forecast = await self.weather_source.get_weather_forecast(days=5)
+                        
+                        yield {
+                            "step": "weather_fetch",
+                            "status": "completed",
+                            "message": f"✅ Weather data ready! Current: {current_weather['temperature']['current']}°F",
+                            "weather_data": current_weather,
+                            "forecast_data": weather_forecast,
+                            "progress": 25
+                        }
+                    else:
+                        yield {
+                            "step": "weather_fetch",
+                            "status": "completed",
+                            "message": f"✅ Current weather: {current_weather['temperature']['current']}°F, {current_weather['conditions']['description']}",
+                            "weather_data": current_weather,
+                            "progress": 25
+                        }
+                        
+                except Exception as e:
+                    logger.error(f"Error fetching weather data: {e}")
+                    yield {
+                        "step": "weather_fetch",
+                        "status": "error",
+                        "message": "⚠️ Weather data unavailable - using cached knowledge",
+                        "progress": 25
+                    }
+            
+            # STEP 2: Query Enhancement (for informational queries)
             yield {
                 "step": "query_enhancement",
                 "status": "processing",
-                "message": "✨ Enhancing your question for better search...",
-                "progress": 20
-            }
-            
-            yield {
-                "step": "query_enhancement", 
-                "status": "processing",
-                "message": f"🏷️ Detected query type: {query_type}",
-                "progress": 20
-            }
-            
-            # Enhance the query using LLM
-            yield {
-                "step": "query_enhancement",
-                "status": "processing", 
                 "message": "✨ Enhancing your question for better search...",
                 "progress": 30
             }
             
+            # Enhance the query using LLM
             enhancement_result = await self.query_enhancer.enhance_query(user_question, query_type)
             enhanced_question = enhancement_result["enhanced_question"]
             
@@ -149,7 +263,7 @@ class EnhancedRAGEngine:
                     "progress": 35
                 }
             
-            # STEP 2: Vector Retrieval
+            # STEP 3: Vector Retrieval
             yield {
                 "step": "vector_retrieval",
                 "status": "processing",
@@ -191,7 +305,7 @@ class EnhancedRAGEngine:
                 "progress": 55
             }
             
-            # STEP 3: Response Generation
+            # STEP 4: Response Generation
             yield {
                 "step": "response_generation",
                 "status": "processing",
@@ -205,12 +319,14 @@ class EnhancedRAGEngine:
                 for i, doc in enumerate(retrieved_docs)
             ])
             
-            # Generate response using OpenAI
+            # Generate response using OpenAI with weather data if available
             response = await self._generate_response(
                 original_question=user_question,
                 enhanced_question=enhanced_question,
                 context=context,
-                query_type=query_type
+                query_type=query_type,
+                current_weather=current_weather,
+                weather_forecast=weather_forecast
             )
             
             yield {
@@ -220,12 +336,30 @@ class EnhancedRAGEngine:
                 "progress": 90
             }
             
-            # Prepare sources
+            # Prepare sources (with URLs if available)
             sources = []
             for doc in retrieved_docs:
                 source_info = doc.metadata.get('source', 'Mount Rainier Knowledge Base')
-                if source_info not in sources:
-                    sources.append(source_info)
+                url = doc.metadata.get('url')
+                # Avoid duplicates by name+url
+                if not any(s['name'] == source_info and s.get('url') == url for s in sources):
+                    sources.append({'name': source_info, 'url': url} if url else {'name': source_info})
+            # Add weather source if used
+            if current_weather:
+                sources.append({'name': 'Real-time Weather Data'})
+            
+            # After generating the RAG/LLM answer for 'trail' queries, append AllTrails link if available
+            if query_type == "trail":
+                # Try to find a matching hike in AllTrailsIntegration
+                trail_name = user_question.strip()
+                alltrails_hikes = self.alltrails_integration.search_hikes(trail_name)
+                if alltrails_hikes:
+                    # Append AllTrails link to the answer
+                    alltrails_link = alltrails_hikes[0]["url"]
+                    alltrails_html = f'<br/><br/>🔗 <a href="{alltrails_link}" target="_blank">View this trail on AllTrails</a>'
+                    # Add to sources as well
+                    sources.append({"name": "AllTrails", "url": alltrails_link})
+                    response += alltrails_html
             
             # FINAL RESULT
             yield {
@@ -244,6 +378,9 @@ class EnhancedRAGEngine:
                 "answer": response,
                 "sources": sources,
                 "enhancement_used": enhancement_result["enhancement_successful"],
+                "weather_used": current_weather is not None,
+                "weather_data": current_weather,
+                "forecast_data": weather_forecast,
                 "progress": 100,
                 "message": "🎉 Complete! Your Mount Rainier guide is ready."
             }
@@ -257,6 +394,29 @@ class EnhancedRAGEngine:
                 "error": str(e),
                 "progress": 0
             }
+    
+    def _is_weather_related(self, question: str) -> bool:
+        """Check if question is weather-related"""
+        weather_keywords = [
+            "weather", "temperature", "rain", "snow", "wind", "forecast", 
+            "storm", "sunny", "cloudy", "cold", "hot", "precipitation",
+            "conditions", "climate", "humidity", "visibility", "fog"
+        ]
+        question_lower = question.lower()
+        return any(keyword in question_lower for keyword in weather_keywords)
+    
+    def _is_alltrails_related(self, question: str) -> bool:
+        """Check if question is AllTrails/hiking-related"""
+        alltrails_keywords = [
+            'hike', 'hiking', 'trail', 'alltrails', 'trails', 'backpacking',
+            'day hike', 'waterfall', 'lake', 'alpine', 'family friendly',
+            'easy hike', 'moderate hike', 'hard hike', 'challenging hike',
+            'wonderland trail', 'skyline trail', 'burroughs', 'naches peak',
+            'comet falls', 'narada falls', 'crystal lakes', 'reflection lakes',
+            'tolmie peak', 'mount fremont', 'grove of the patriarchs'
+        ]
+        question_lower = question.lower()
+        return any(keyword in question_lower for keyword in alltrails_keywords)
     
     async def get_answer(self, user_question: str) -> Dict[str, Any]:
         """
@@ -283,23 +443,47 @@ class EnhancedRAGEngine:
         original_question: str,
         enhanced_question: str, 
         context: str, 
-        query_type: str
+        query_type: str,
+        current_weather: Optional[Dict[str, Any]] = None,
+        weather_forecast: Optional[Dict[str, Any]] = None
     ) -> str:
-        """Generate response using OpenAI with context and enhanced question"""
+        """Generate response using OpenAI with context, enhanced question, and weather data"""
         
         # Create system prompt based on query type
         system_prompt = self._get_system_prompt(query_type)
         
-        # Create user message with context
-        user_message = f"""Based on the following Mount Rainier information, please answer the user's question.
+        # Prepare weather context if available
+        weather_context = ""
+        if current_weather:
+            weather_context = f"""
+CURRENT WEATHER DATA:
+Temperature: {current_weather['temperature']['current']}°F (feels like {current_weather['temperature']['feels_like']}°F)
+Conditions: {current_weather['conditions']['description']}
+Wind: {current_weather['wind']['speed']} mph
+Humidity: {current_weather['humidity']}%
+Visibility: {current_weather['visibility']} km
+Location: {current_weather['location']}
+Elevation Notes: {current_weather['elevation_notes']}
+
+"""
+        
+        if weather_forecast and weather_forecast.get('forecasts'):
+            weather_context += f"""
+WEATHER FORECAST:
+"""
+            for i, forecast in enumerate(weather_forecast['forecasts'][:3]):  # Show next 3 days
+                weather_context += f"Day {i+1}: High {forecast['temperature']['high']}°F, Low {forecast['temperature']['low']}°F, {forecast['conditions']['description']}, {forecast['precipitation_chance']:.0f}% chance of precipitation\n"
+        
+        # Create user message with context and weather data
+        user_message = f"""Based on the following Mount Rainier information and current weather data, please answer the user's question.
 
 ORIGINAL USER QUESTION: "{original_question}"
 ENHANCED QUESTION: "{enhanced_question}"
 
-RELEVANT INFORMATION:
+{weather_context}RELEVANT INFORMATION:
 {context}
 
-Please provide a helpful, accurate answer based on the information provided. If the information doesn't fully answer the question, say so. Always mention specific details from the context when relevant.
+Please provide a helpful, accurate answer based on the information provided. If weather data is available, incorporate it into your response and provide specific recommendations based on current conditions. If the information doesn't fully answer the question, say so. Always mention specific details from the context when relevant.
 
 CRITICAL: Follow this EXACT formatting template:
 
@@ -318,6 +502,7 @@ MANDATORY RULES:
 - Use <strong>text</strong> for bold formatting
 - If you need to list multiple items within a section, separate them with " - " (dash-space)
 - Keep each numbered section on its own paragraph
+- If weather data is provided, include current conditions and recommendations in your response
 
 ANSWER:"""
 
@@ -329,11 +514,13 @@ ANSWER:"""
                     {"role": "system", "content": system_prompt},
                     {"role": "user", "content": user_message}
                 ],
-                max_tokens=500,
+                max_tokens=600,  # Increased for weather responses
                 temperature=0.7
             )
             
-            return response.choices[0].message.content or "I couldn't generate a proper response."
+            response_text = response.choices[0].message.content or "I couldn't generate a proper response."
+            response_text = self._fix_numbered_list_formatting(response_text)
+            return response_text
             
         except Exception as e:
             logger.error(f"Error generating response: {e}")
@@ -412,6 +599,16 @@ IMPORTANT FORMATTING RULES:
                 "Hello! I'm your Mount Rainier guide. 🏔️ "
                 "What would you like to know about hiking, climbing, permits, weather, or safety? 🗻"
             )
+
+    def _fix_numbered_list_formatting(self, text: str) -> str:
+        """Ensure each numbered item starts on a new line and ends with <br/> (compact look)"""
+        # Add a newline before each number at the start of a line or after a <br/>
+        text = re.sub(r'(\d+)\.\s*<strong>', r'<br/>\1. <strong>', text)
+        # Remove extra <br/> at the very start
+        text = re.sub(r'^(<br/>)+', '', text)
+        # Ensure every numbered item ends with <br/>
+        text = re.sub(r'(\d+\.\s*<strong>.*?</strong>.*?)(?=(\d+\.\s*<strong>|$))', lambda m: m.group(1).rstrip() + '<br/>', text, flags=re.DOTALL)
+        return text
 
 # For backward compatibility, keep the original class as an alias
 class RAGEngine(EnhancedRAGEngine):

@@ -324,10 +324,37 @@ class MountRainierHandler(BaseHTTPRequestHandler):
             border-radius: 12px;
             color: #E0F6FF;
             font-size: 13px;
+            line-height: 1.5;
             padding: 12px 16px;
-            margin-bottom: 8px;
+            margin-bottom: 12px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
             backdrop-filter: blur(8px);
+        }
+        
+        .progress-message {
+            background: linear-gradient(135deg, rgba(70, 130, 180, 0.2), rgba(100, 149, 237, 0.15));
+            border: 2px solid rgba(135, 206, 235, 0.3);
+            border-left: 4px solid #87CEEB;
+            color: #E0F6FF;
+            font-size: 14px;
+            line-height: 1.6;
+            padding: 16px;
+            margin-bottom: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(12px);
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 0.8; }
+            50% { opacity: 1; }
+            100% { opacity: 0.8; }
+        }
+        
+        .progress-content {
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
         
         /* Typography within messages */
@@ -896,6 +923,13 @@ class MountRainierHandler(BaseHTTPRequestHandler):
             button.disabled = true;
             button.textContent = 'Asking...';
             
+            // Create progress message container
+            const progressContainer = document.createElement('div');
+            progressContainer.className = 'message ai-message progress-message';
+            progressContainer.innerHTML = '<div class="progress-content">🤔 Processing your question...</div>';
+            document.getElementById('chatHistory').appendChild(progressContainer);
+            document.getElementById('chatHistory').scrollTop = document.getElementById('chatHistory').scrollHeight;
+            
             try {
                 const response = await fetch('/ask', {
                     method: 'POST',
@@ -909,6 +943,9 @@ class MountRainierHandler(BaseHTTPRequestHandler):
                 });
                 
                 const data = await response.json();
+                
+                // Remove progress message
+                progressContainer.remove();
                 
                 if (data.error) {
                     addMessage(`❌ ${data.error}`, 'ai');
@@ -929,9 +966,23 @@ class MountRainierHandler(BaseHTTPRequestHandler):
                     // Add AI response - cleaner format
                     let response = data.answer;
                     
+                    // Add weather data indicator if weather was used
+                    if (data.weather_used) {
+                        response = `<div style="margin-bottom: 8px; padding: 8px 12px; background: rgba(135, 206, 235, 0.1); border-left: 3px solid #87CEEB; border-radius: 6px; font-size: 12px; color: #E0F6FF;">
+                            🌤️ <strong>Real-time weather data included</strong> - Current conditions from Mount Rainier
+                        </div>` + response;
+                    }
+                    
                     // Add sources if available - more subtle
                     if (data.sources && data.sources.length > 0) {
-                        response += `<br/><br/><small style="opacity: 0.7;">📚 ${data.sources.join(' • ')}</small>`;
+                        const sourceLinks = data.sources.map(src => {
+                            if (src.url) {
+                                return `<a href="${src.url}" target="_blank" rel="noopener" style="color:#87CEEB;text-decoration:underline;">${src.name}</a>`;
+                            } else {
+                                return src.name;
+                            }
+                        });
+                        response += `<br/><br/><small style="opacity: 0.7;">📚 ${sourceLinks.join(' • ')}</small>`;
                     }
                     
                     addMessage(response, 'ai');
@@ -939,6 +990,8 @@ class MountRainierHandler(BaseHTTPRequestHandler):
                 }
                 
             } catch (error) {
+                // Remove progress message
+                progressContainer.remove();
                 addMessage(`❌ Connection error. Please try again.`, 'ai');
             } finally {
                 // Re-enable button
@@ -962,7 +1015,8 @@ class MountRainierHandler(BaseHTTPRequestHandler):
             messageDiv.innerHTML = content;
             
             chatHistory.appendChild(messageDiv);
-            chatHistory.scrollTop = chatHistory.scrollHeight;
+            // Improved scroll: only scroll if needed, keep both previous and new message visible
+            messageDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
         
 
